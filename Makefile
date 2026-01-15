@@ -53,11 +53,11 @@ setup: install upgrade
 	@echo "Setup complete! Run 'make dev' to start the server."
 
 deploy:
-	docker-compose up -d --build
+	docker compose up -d --build
 
 docker-down:
-	docker-compose down
+	docker compose down
 
 docker-logs:
-	docker-compose logs -f
+	docker compose logs -f
 
