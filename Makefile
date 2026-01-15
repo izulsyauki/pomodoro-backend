@@ -1,4 +1,4 @@
-.PHONY: install run dev migrate upgrade downgrade test clean help
+.PHONY: install run dev migrate upgrade downgrade test clean help deploy docker-down docker-logs
 
 # Variables
 PYTHON = python3
@@ -17,6 +17,9 @@ help:
 	@echo "  make freeze     - Freeze requirements"
 	@echo "  make clean      - Clean cache files"
 	@echo "  make setup      - Initial setup (install + upgrade)"
+	@echo "  make deploy     - Deploy app using Docker Compose"
+	@echo "  make docker-down- Stop Docker containers"
+	@echo "  make docker-logs- View Docker logs"
 	@echo ""
 
 install:
@@ -26,10 +29,10 @@ freeze:
 	$(PIP) freeze > requirements.txt
 
 run:
-	$(UVICORN) app.main:app --host 0.0.0.0 --port 8000
+	$(UVICORN) app.main:app --host 0.0.0.0 --port 8001
 
 dev:
-	$(UVICORN) app.main:app --host 0.0.0.0 --port 8000 --reload
+	$(UVICORN) app.main:app --host 0.0.0.0 --port 8001 --reload
 
 migrate:
 	@read -p "Migration message: " msg; \
@@ -48,3 +51,13 @@ clean:
 
 setup: install upgrade
 	@echo "Setup complete! Run 'make dev' to start the server."
+
+deploy:
+	docker-compose up -d --build
+
+docker-down:
+	docker-compose down
+
+docker-logs:
+	docker-compose logs -f
+
