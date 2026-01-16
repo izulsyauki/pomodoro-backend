@@ -125,6 +125,14 @@ Setelah server berjalan, buka `http://localhost:8000/docs` untuk melihat Swagger
 | GET | `/api/v1/auth/me` | Get current user profile | ✅ |
 | PUT | `/api/v1/auth/me` | Update current user profile | ✅ |
 | GET | `/api/v1/auth/profile/{user_id}` | Get user by ID | ❌ |
+| POST | `/api/v1/auth/logout` | Logout (stateless) | ✅ |
+
+### Pomodoro
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | `/api/v1/pomodoro/sessions` | Create new session | ✅ |
+| GET | `/api/v1/pomodoro/history` | Get session history | ✅ |
+| GET | `/api/v1/leaderboard` | Get leaderboard | ❌ |
 
 ## 📝 API Examples
 

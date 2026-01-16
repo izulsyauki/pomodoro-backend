@@ -63,3 +63,9 @@ def get_user_profile(user_id: str, db: Session = Depends(get_db)):
 
     service = UserService(db)
     return service.get_profile(UUID(user_id))
+
+
+@router.post("/logout", response_model=MessageResponse)
+def logout(current_user: User = Depends(get_current_user)):
+    """Logout current user (stateless - client should discard token)."""
+    return MessageResponse(message="Successfully logged out")
