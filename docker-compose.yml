@@ -9,29 +9,12 @@ services:
     environment:
       # Menggunakan value DATABASE_URL langsung dari .env host
       # Pastikan di .env VPS, host-nya bukan 'localhost', tapi IP private VPS atau 'host.docker.internal'
-      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/pomodoro_db}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/pomodoro}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - JWT_ALGORITHM=${JWT_ALGORITHM:-HS256}
       - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
       - REFRESH_TOKEN_EXPIRE_DAYS=${REFRESH_TOKEN_EXPIRE_DAYS:-7}
-    depends_on:
-      - db
+
     # Uncomment baris di bawah jika ingin akses database di localhost VPS (Linux) dengan 'localhost'
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
-  db:
-      image: postgres:15
-      container_name: pomodoro_db
-      restart: always
-      environment:
-        POSTGRES_USER: ${POSTGRES_USER:-postgres}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-        POSTGRES_DB: ${POSTGRES_DB:-pomodoro_db}
-      ports:
-        - "5432:5432"
-      volumes:
-        - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
